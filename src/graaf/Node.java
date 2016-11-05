@@ -13,9 +13,6 @@ public class Node {
     public List<Node> buren = new ArrayList<>();
     // dominantie : aantal node's die deze node domineren (inclusief zichzelf indien gemarkeerd==true)
     public int referenced;
-    public boolean deleted=false; // true indien geen deel v/d gereduceerde graaf (zie reduceerfase)
-    public int reducdeerverzamlingnummer = -1;// (zie reduceerfase)
-    public boolean locked=false; // true indien deze node een zogezegde virtuele boog bevat. (zie reduceerfase)
     //
     //hamilton : hoe lager, hoe minder aantrekkelijk deze node wordt om gekozen te worden door anderen
     public int fitness = Integer.MAX_VALUE;

@@ -15,29 +15,29 @@ import java.io.InputStream;
  */
 public class Test_Dominantie {
     public static void main(String[] args) throws IOException {
-        debug();
-        //testFile();
+        //debug();
+        testFile();
     }
 
     private static void debug() throws IOException {
         String[] x = {
-                "testgrafen/klein/graafreduceer.sec", // directory klein
-                "testgrafen/testset/graaf1.sec" // directory testset
+                "testgrafen/klein/alle_5.sec", // directory klein
+                "testgrafen/testset/graaf7.sec" // directory testset
         };
-        SimpleEdgeCodeReader r = new SecReader(x[1]);
+        SimpleEdgeCodeReader r = new SecReader(x[0]);
         Node[] graaf ;
         //Common.printGraaf(graaf);
         while((graaf=r.read()) != null) {
             Node[] opl = Dominantie.zoekDominanteSet(graaf);
             System.out.println(isDominant(graaf, opl));
             System.out.println(referentiesKloppen(graaf, opl));
-            printDominantie(graaf);
+            printDominantie(opl);
         }
         //Common.printGraaf(graaf);
     }
 
     public static void testFile() throws IOException {
-        String path = "testgrafen/klein/graafreduceer.sec";
+        String path = "testgrafen/klein/alle_5.sec";
         InputStream s = new FileInputStream(path);
         Dominantie.main(s);
         s.close();
@@ -63,11 +63,7 @@ public class Test_Dominantie {
 
     public static boolean referentiesKloppen(Node[] graaf, Node[] oplossing) {
         boolean correct = true;
-        int aantaltoppen =0; // aantal toppen IN GEREDUCEERDE GRAAF
-        for(Node n : graaf)
-            if(!n.deleted)
-                aantaltoppen++;
-        if(aantaltoppen != Node.referencedNodes) {
+        if(graaf.length != Node.referencedNodes) {
             System.err.println("Totaal gerefereerde aantal nodes zijn niet gelijk aan aantal toppen.");
             correct = false;
         }
