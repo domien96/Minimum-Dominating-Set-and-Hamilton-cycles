@@ -21,5 +21,6 @@ public class Test_sorteerder {
             assert (j.graad>= prev.graad);
             prev=j;
         }
+        r.close();
     }
 }

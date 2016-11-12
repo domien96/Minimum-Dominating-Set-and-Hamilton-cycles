@@ -20,6 +20,7 @@ public class Test_SEC_Reader {
         Common.printGraaf(nodes);
         System.out.println("Tweede graaf");
         Common.printGraaf(r.read());
+        r.close();
     }
 
     public static void testReadAll() throws IOException {
@@ -29,6 +30,7 @@ public class Test_SEC_Reader {
         while(r.read()!=null)
             aantalGrafen++;
         assertTrue(aantalGrafen==25);
+        r.close();
     }
 }
 

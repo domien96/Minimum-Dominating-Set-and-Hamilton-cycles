@@ -10,10 +10,6 @@ import java.io.EOFException;
  */
 public class SecReader implements SimpleEdgeCodeReader {
 
-    //Used for Hamilton
-    public static int indexLaagsteGraadNode = -1;
-    //
-
     private final InputStream r;
     private int numberSize;
 
@@ -46,11 +42,6 @@ public class SecReader implements SimpleEdgeCodeReader {
             alleNodes = new Node[n];
             Node[] mapEdgeToNode = new Node[e]; // zo kunnen buren Node objecten elkaar terugvinden
 
-            // Used for hamilton
-            int laagsteGraad = Integer.MAX_VALUE;
-            indexLaagsteGraadNode = -1;
-            //
-
             for (int nodenr=0;nodenr<n;nodenr++) {
                 Node cur = new Node(nodenr);
                 alleNodes[nodenr] = cur;
@@ -63,10 +54,6 @@ public class SecReader implements SimpleEdgeCodeReader {
                     } else {
                         // de buren kunnen elkaar nu erkennen
                         mapEdgeToNode[boognr].nieuweBuur(cur);
-                    }
-                    if(cur.graad < laagsteGraad) {
-                        indexLaagsteGraadNode = nodenr;
-                        laagsteGraad = cur.graad;
                     }
                     boognr = readNextnumber();
                 }

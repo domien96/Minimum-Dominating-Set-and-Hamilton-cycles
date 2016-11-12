@@ -15,16 +15,16 @@ import java.io.InputStream;
  */
 public class Test_Dominantie {
     public static void main(String[] args) throws IOException {
-        //debug();
-        testFile();
+        debug();
+        //testFile();
     }
 
     private static void debug() throws IOException {
         String[] x = {
                 "testgrafen/klein/alle_5.sec", // directory klein
-                "testgrafen/testset/graaf7.sec" // directory testset
+                "testgrafen/testset/graaf2.sec" // directory testset
         };
-        SimpleEdgeCodeReader r = new SecReader(x[0]);
+        SimpleEdgeCodeReader r = new SecReader(x[1]);
         Node[] graaf ;
         //Common.printGraaf(graaf);
         while((graaf=r.read()) != null) {
@@ -33,6 +33,7 @@ public class Test_Dominantie {
             System.out.println(referentiesKloppen(graaf, opl));
             printDominantie(opl);
         }
+        r.close();
         //Common.printGraaf(graaf);
     }
 

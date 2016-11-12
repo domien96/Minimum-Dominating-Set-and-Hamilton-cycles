@@ -40,11 +40,10 @@ public class Hamilton {
     public static void zoekenprintHamiltonCykel(Node[] graaf) {
         Node[] pad = zoekHamiltonCykel(graaf);
         if(pad != null) {// O(1) only 0 or 1 node in list left normally.
-            System.out.println("ok");
             for(Node n : pad)
                 System.out.print(n.nummer+1+" "); // + 1 want opgave telt met nodeindices vanaf 1.
         } else
-            System.out.println("no");
+            System.out.print("Geen cykel gevonden.");
 
     }
 
@@ -59,7 +58,7 @@ public class Hamilton {
     public static Node[] zoekHamiltonCykel(Node[] nodes) {
         Node[] pad = new Node[nodes.length];
         // starten bij degene met laagste graad, idealiter graad 2 zodat er geen kans is op het kiezen van een verkeerd pad.
-        Node start = nodes[SecReader.indexLaagsteGraadNode],
+        Node start = kiesStartNode(nodes),
                 cur = start; // kop van het pad
         // De meest aantrekklijkste buur/richting om het pad voor te zetten.
         Node prefNode = null;
@@ -67,9 +66,12 @@ public class Hamilton {
         //
         pad[0]=cur;
         cur.fitness=0;
-        for (int i = 1;i<nodes.length && !(cur.buren.isEmpty());i++) {
+        int i;
+        for (i = 1;i<nodes.length && !(cur.buren.isEmpty());i++) {
             //cur.suggestFitness(cur.fitness+1); // of misschien ? cur.fitness++;
             for(Node buur: cur.buren) {
+                if(buur==start)
+                    continue;
                 buur.suggestFitness(cur.fitness+1);
                 if(prefNode == null)
                     prefNode = buur;
@@ -80,14 +82,37 @@ public class Hamilton {
                 if(cur != start) // om final check correct te kunnen uitvoeren, wordt start als buur behouden
                     buur.buren.remove(cur);
             }
+            if(prefNode==null)
+                break;
             pad[i]= prefNode;
             cur=prefNode;
             prefNode= null;
         }
         // Final check if path is closed.
-        if(cur.buren.contains(start)) // O(1) only 0 or 1 node in list left normally.
+        if(i == nodes.length && cur.buren.contains(start)) // O(1) only 0 or 1 node in list left normally.
             return pad;
         else
             return null;
+    }
+
+    /**
+     * Hoogste voorkeur aan graad 2.
+     * @param nodes
+     * @return
+     */
+    public static Node kiesStartNode(Node[] nodes) {
+        // Used for hamilton
+        int hoogsteGraad = -1;
+        Node hoogsteGraadNode = null;
+        //
+        for (Node cur : nodes) {
+            if(cur.graad == 2)
+                return cur;
+            if(cur.graad > hoogsteGraad) {
+                hoogsteGraadNode = cur;
+                hoogsteGraad = cur.graad;
+            }
+        }
+        return hoogsteGraadNode;
     }
 }
