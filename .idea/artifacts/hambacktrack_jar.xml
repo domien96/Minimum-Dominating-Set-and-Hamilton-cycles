@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="hambacktrack:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/hambacktrack_jar</output-path>
+    <root id="archive" name="Project-16_17.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/backtrack/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="Project-16_17" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/junit-4.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
